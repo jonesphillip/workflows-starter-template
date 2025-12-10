@@ -25,7 +25,7 @@ Visit `http://localhost:5173` to see the interactive demo.
 ### Deployment
 
 ```bash
-npx wrangler deploy
+npm run deploy
 ```
 
 ## Learn More

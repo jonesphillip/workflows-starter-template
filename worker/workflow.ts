@@ -17,7 +17,9 @@ export class MyWorkflow extends WorkflowEntrypoint<
   async run(event: WorkflowEvent<Record<string, unknown>>, step: WorkflowStep) {
     const instanceId = event.instanceId;
 
-    // Helper function to notify Durable Object of step progress
+    // Notify Durable Object of step progress. Called outside step.do, so may repeat
+    // on workflow restart. Safe here because updateStep is idempotent.
+    // Refer to: https://developers.cloudflare.com/workflows/build/rules-of-workflows/#ensure-apibinding-calls-are-idempotent
     const notifyStep = async (
       stepName: string,
       status: "running" | "completed" | "waiting",
